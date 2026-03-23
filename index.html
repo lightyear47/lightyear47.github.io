@@ -1,81 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lightyear47 — AI Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Nunito', sans-serif; background: linear-gradient(160deg, #003f7f 0%, #0077b6 40%, #005a8a 100%); min-height: 100vh; color: #fff; }
-  a { color: inherit; text-decoration: none; }
-  .container { max-width: 720px; margin: 0 auto; padding: 48px 20px; }
-  .header { text-align: center; margin-bottom: 48px; }
-  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.02em; }
-  .header p { font-size: 16px; color: rgba(255,255,255,0.6); font-weight: 600; line-height: 1.6; max-width: 500px; margin: 0 auto; }
-  .header .links { margin-top: 16px; display: flex; gap: 16px; justify-content: center; }
-  .header .links a { font-size: 14px; font-weight: 700; color: #48cae4; border-bottom: 2px solid transparent; transition: all 0.2s; padding-bottom: 2px; }
-  .header .links a:hover { border-bottom-color: #48cae4; }
-  .section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
-  .project-card { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px; margin-bottom: 16px; transition: all 0.3s cubic-bezier(0.25,1,0.5,1); }
-  .project-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-  .project-card .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
-  .project-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-  .project-card p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.65; margin-bottom: 16px; }
-  .project-card .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-  .project-card .tag { background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); }
-  .project-card .card-links a { font-size: 14px; font-weight: 800; color: #48cae4; transition: all 0.2s; }
-  .project-card .card-links a:hover { color: #00e5a0; }
-  .courses { background: rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 24px; margin-top: 32px; }
-  .courses h3 { font-size: 16px; font-weight: 800; margin-bottom: 14px; }
-  .course-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .course-item:last-child { border-bottom: none; }
-  .course-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .course-item span { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 600; }
-  .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
-  .footer p { font-size: 13px; color: rgba(255,255,255,0.3); font-weight: 600; }
-  .footer a { color: rgba(255,255,255,0.5); }
-  .footer a:hover { color: #48cae4; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lightyear47 — AI Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --surface: #111115;
+      --surface-hover: #18181e;
+      --border: #222230;
+      --text: #e8e8ed;
+      --text-muted: #8888a0;
+      --accent: #c9f059;
+      --accent-dim: #c9f05920;
+      --accent-glow: #c9f05940;
+      --red: #ff6b6b;
+      --blue: #6bc5ff;
+      --amber: #ffb86b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ---- Grain overlay ---- */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ---- Top gradient glow ---- */
+    .glow-top {
+      position: fixed;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---- Layout ---- */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---- Header ---- */
+    header {
+      padding: 80px 0 60px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 8vw, 72px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--text);
+      margin-bottom: 20px;
+      animation: fadeDown 0.6s ease 0.1s both;
+    }
+
+    h1 span {
+      display: block;
+      background: linear-gradient(135deg, var(--accent) 0%, #a8d840 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .bio {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 28px;
+      animation: fadeDown 0.6s ease 0.2s both;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 16px;
+      animation: fadeDown 0.6s ease 0.3s both;
+    }
+
+    .header-links a {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .header-links a:hover { color: var(--accent); }
+
+    .header-links a svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* ---- Divider ---- */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+      margin: 20px 0 50px;
+    }
+
+    /* ---- Section titles ---- */
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    /* ---- Project card ---- */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      margin-bottom: 16px;
+      animation: fadeUp 0.5s ease 0.4s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--blue));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .card-badge {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      background: #ff6b6b15;
+      border: 1px solid #ff6b6b25;
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+
+    .card-arrow {
+      color: var(--text-muted);
+      font-size: 20px;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    .project-card:hover .card-arrow {
+      transform: translate(3px, -3px);
+      color: var(--accent);
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .card-tags span {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+
+    /* ---- Coming soon card ---- */
+    .coming-soon {
+      border-style: dashed;
+      opacity: 0.5;
+      animation: fadeUp 0.5s ease 0.5s both;
+    }
+
+    .coming-soon:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: var(--border);
+    }
+
+    .coming-soon .card-title {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .coming-soon .card-desc {
+      font-size: 13px;
+      margin-bottom: 0;
+    }
+
+    /* ---- Coursework ---- */
+    .coursework-section {
+      margin-top: 60px;
+      margin-bottom: 80px;
+      animation: fadeUp 0.5s ease 0.6s both;
+    }
+
+    .course-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .course-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .course-item:last-child { border-bottom: none; }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot.done { background: var(--accent); box-shadow: 0 0 8px var(--accent-dim); }
+    .dot.wip { background: var(--amber); box-shadow: 0 0 8px #ffb86b30; }
+    .dot.todo { background: var(--border); }
+
+    .course-name { color: var(--text-muted); }
+    .course-item:has(.dot.done) .course-name { color: var(--text); }
+
+    .course-status {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .course-item:has(.dot.done) .course-status { color: var(--accent); }
+    .course-item:has(.dot.wip) .course-status { color: var(--amber); }
+    .course-item:has(.dot.todo) .course-status { color: var(--text-muted); opacity: 0.4; }
+
+    /* ---- Footer ---- */
+    footer {
+      padding: 40px 0 60px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ---- Animations ---- */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 600px) {
+      header { padding: 50px 0 40px; }
+      .project-card { padding: 24px; }
+      .card-title { font-size: 18px; }
+      .course-status { display: none; }
+    }
+  </style>
 </head>
 <body>
+
+<div class="glow-top"></div>
+
 <div class="container">
-  <div class="header">
-    <h1>Lightyear47</h1>
-    <p>Building AI collaboration tools and learning in public. Currently completing Anthropic's AI training curriculum.</p>
-    <div class="links">
-      <a href="https://github.com/lightyear47">GitHub &#8599;</a>
+
+  <header>
+    <div class="tag">Portfolio</div>
+    <h1>Lightyear<span>47</span></h1>
+    <p class="bio">Building AI collaboration tools and learning in public. Currently completing Anthropic's AI training curriculum.</p>
+    <div class="header-links">
+      <a href="https://github.com/lightyear47" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
     </div>
-  </div>
-  <div class="section-title">Projects</div>
-  <a href="https://lightyear47.github.io/4ds-quiz/" class="project-card" style="display:block;">
-    <span class="badge" style="background:#e63946; color:#fff;">Interactive Quiz</span>
-    <h3>The 4Ds Quiz</h3>
-    <p>A Quizizz-style quiz for identifying the 4Ds of AI collaboration. Features confidence tracking, difficulty tiers, trap-answer feedback, and blind spot analysis.</p>
-    <div class="tags">
-      <span class="tag">React</span>
-      <span class="tag">AI Frameworks</span>
-      <span class="tag">Learning Design</span>
-      <span class="tag">Prompt Engineering</span>
+  </header>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="section-label">Projects</div>
+
+    <a class="project-card" href="https://lightyear47.github.io/4ds-quiz/" target="_blank">
+      <div class="card-top">
+        <span class="card-badge">Interactive Quiz</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-title">The 4Ds Quiz</div>
+      <p class="card-desc">A Quizizz-style quiz for identifying the 4Ds of AI collaboration. Features confidence tracking, difficulty tiers, trap-answer feedback, and blind spot analysis.</p>
+      <div class="card-tags">
+        <span>React</span>
+        <span>AI Frameworks</span>
+        <span>Learning Design</span>
+        <span>Prompt Engineering</span>
+      </div>
+    </a>
+
+    <div class="project-card coming-soon">
+      <div class="card-title">More projects in progress…</div>
+      <p class="card-desc">Additional tools and projects from Anthropic's AI courses will appear here as they're completed.</p>
     </div>
-    <div class="card-links"><span>Try it &#8594;</span></div>
-  </a>
-  <div class="project-card" style="opacity:0.5;">
-    <span class="badge" style="background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.5);">Coming Soon</span>
-    <h3 style="color:rgba(255,255,255,0.5);">More projects in progress...</h3>
-    <p>Additional tools and projects from Anthropic's AI courses will be added as they're completed.</p>
-  </div>
-  <div class="courses">
-    <h3>Coursework</h3>
-    <div class="course-item"><div class="dot" style="background:#00e5a0;"></div><span>AI Fluency: Frameworks &amp; Foundations</span></div>
-    <div class="course-item"><div class="dot" style="background:#00e5a0;"></div><span>Claude 101</span></div>
-    <div class="course-item"><div class="dot" style="background:#e9a820;"></div><span>Building with the Claude API</span></div>
-    <div class="course-item"><div class="dot" style="background:#e9a820;"></div><span>Introduction to Model Context Protocol</span></div>
-    <div class="course-item"><div class="dot" style="background:rgba(255,255,255,0.2);"></div><span>Model Context Protocol: Advanced Topics</span></div>
-    <div class="course-item"><div class="dot" style="background:rgba(255,255,255,0.2);"></div><span>Introduction to Agent Skills</span></div>
-    <div class="course-item"><div class="dot" style="background:rgba(255,255,255,0.2);"></div><span>Claude Code in Action</span></div>
-  </div>
-  <div class="footer"><p>Built by <a href="https://github.com/lightyear47">@lightyear47</a></p></div>
+  </section>
+
+  <section class="coursework-section">
+    <div class="section-label">Coursework</div>
+    <div class="course-list">
+      <div class="course-item">
+        <span class="dot done"></span>
+        <span class="course-name">AI Fluency: Frameworks &amp; Foundations</span>
+        <span class="course-status">Complete</span>
+      </div>
+      <div class="course-item">
+        <span class="dot wip"></span>
+        <span class="course-name">Claude 101</span>
+        <span class="course-status">In Progress</span>
+      </div>
+      <div class="course-item">
+        <span class="dot todo"></span>
+        <span class="course-name">Building with the Claude API</span>
+        <span class="course-status">Upcoming</span>
+      </div>
+      <div class="course-item">
+        <span class="dot todo"></span>
+        <span class="course-name">Introduction to Model Context Protocol</span>
+        <span class="course-status">Upcoming</span>
+      </div>
+      <div class="course-item">
+        <span class="dot todo"></span>
+        <span class="course-name">Model Context Protocol: Advanced Topics</span>
+        <span class="course-status">Upcoming</span>
+      </div>
+      <div class="course-item">
+        <span class="dot todo"></span>
+        <span class="course-name">Introduction to Agent Skills</span>
+        <span class="course-status">Upcoming</span>
+      </div>
+      <div class="course-item">
+        <span class="dot todo"></span>
+        <span class="course-name">Claude Code in Action</span>
+        <span class="course-status">Upcoming</span>
+      </div>
+    </div>
+  </section>
+
 </div>
+
+<footer>
+  <div class="container">
+    Built by <a href="https://github.com/lightyear47" target="_blank">@lightyear47</a>
+  </div>
+</footer>
+
 </body>
 </html>
